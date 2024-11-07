@@ -1,38 +1,32 @@
-# Conception d'une infrastructure sur AWS
+nom et prenom:
 
-Félicitations ! Vous venez de terminer de développer votre nouvelle app (révolutionnaire à n'en point douter) et n'êtes qu'à un déploiement sur AWS d'une longue vie remplie de gloire et de richesses.
+Kylian Jeannet
+Léopold Macquart de Terline
 
-Pour y parvenir, vous venez de créer et d'uploader deux images Docker des composants de votre app, appellées **backend** et **frontend** (partez du principe que cette étape est déjà réalisée). Votre application étant révolutionnaire, ces deux images constituent l'intégralité de ce que vous avez à déployer. 
+
+qustion 1 
+Utilité : ECS est un service qui permet de faire tourner des conteneurs Docker
+Clsuter avce Fargate : Fargate est une option qui automatise la gestion des serveurs etr les MAJ
+
+Le Load Balancer répartit le trafic entre les deux zones de disponibilité. Cela signifie que si un des conteneurs (ou même une zone entière) a un problème, le trafic peut être redirigé vers l'autre zone, garantissant que ton application reste accessible. (reverse proxi)
+Amazon RDS les données sont stockées et accessibles par le backend.
+Security group sont des pare-feu virtuels associés à les ressources AWS pour contrôler le trafic
+VCP  est un environnement réseau privé dans lequel les ressources AWS seront déployées
+CloudFront : Utilisé pour la distribution de contenu, afin d'optimiser l'accès aux utilisateurs, avec un cache près de l'utilisateur
+Amazon S3 : Stockage d'objets pour des fichiers statiques comme des images ou des documents.
+Public Subnet A et B : Ces sous-réseaux publics contiennent des ressources exposées à Internet.
 
 
-Il ne vous reste plus qu'à designer votre infrastructure et le tour est joué !
-Cette tâche peut se décomposer en trois parties 
+Question 2
+le liens vers le ficier qui cointient le shemat https://excalidraw.com/#json=cTXQMBGPKhV6Md7rJhepO,Y3xVaHQ6rCbqvmX429wBoQ
 
-1. Sélectionner les composants AWS dont vous aurez besoin pour déployer votre app. *(indice: Lisez votre cours et la documentation AWS)*
-2. Créer un schéma décrivant l'infrastructure que vous allez déployer *(indice: https://aws.amazon.com/fr/what-is/architecture-diagramming/)*
-3. Justifier vos choix techniques (il faut bien convaincre vos futurs investisseurs !)
-4. Bonus: Indiquez quel service AWS vous avez utilisé pour uploader vos images Docker et les rendre disponibles dans votre projet AWS
 
-**EXEMPLES DE SCHÉMAS**
-- https://farzanaafrintisha.medium.com/basics-of-aws-architecture-diagram-278563b9cfd1
-- https://developerck.com/aws-architecture-diagrams/
-- https://docs.aws.amazon.com/whitepapers/latest/web-application-hosting-best-practices/an-aws-cloud-architecture-for-web-hosting.html
 
-**CONTRAINTES**
-- Vous n'êtes pas à l'aise avec l'administration d'infrastructure, vous opterez donc pour une solution **managée** et **serverless**
-- Vous souhaitez que votre application soit déployée sur **deux zones** afin de prévenir à tout désastre naturel pouvant frapper les serveurs (même Jeff Bezos ne peut rien face au dérèglement climatique)
 
-**RENDU**
-1. Créez un fichier foad_<nom1>_<nom_2>.md dans votre fork
-2. Répondez aux questions et insérez votre schéma dans ce fichier
-3. Commitez et pushez ce fichier
+question 3:
+L'architecture que j'ai choisie repose sur des services AWS qui assurent la performance, la fiabilité et la maîtrise des coûts de l'application. J'ai opté pour ECS avec Fargate, qui gère automatiquement les conteneurs sans avoir besoin de gérer l'infrastructure sous-jacente. Cela permet une scalabilité dynamique, en ajustant automatiquement les ressources en fonction de la demande, ce qui évite de payer pour des ressources sous-utilisées. Le Load Balancer, combiné à plusieurs Zones de Disponibilité (AZ), garantit une haute disponibilité et une tolérance aux pannes, redirigeant le trafic vers une autre zone en cas de problème. J'ai également intégré VPC et des Security Groups pour sécuriser l'ensemble de l'architecture et limiter les risques d'intrusion, en isolant les ressources critiques du reste du réseau. Côté gestion des données, Amazon RDS pour les bases relationnelles et DynamoDB pour les besoins NoSQL permettent une gestion efficace des données, tandis que S3 assure un stockage sécurisé et durable des objets. Le modèle pay-as-you-go d'AWS permet d'optimiser les coûts, car on ne paie que pour ce qui est utilisé. Enfin, avec des outils comme CloudWatch pour la surveillance et ECR pour le stockage des images Docker, je peux gérer de manière proactive les ressources et automatiser les déploiements avec CodePipeline, assurant ainsi une mise à jour continue sans perturber le service. Cette architecture garantit donc une solution robuste, évolutive et sécurisée, tout en optimisant les coûts et en assurant une gestion simplifiée.
 
-Pour insérer une image dans un fichier markdown
-https://stackoverflow.com/questions/41604263/how-do-i-display-local-image-in-markdown
-https://marinegeo.github.io/2018-08-10-adding-images-markdown/
 
-Pour commit votre rendu:
-- git add fichier1 fichier2 ... fichiern
-- **n'oubliez pas de commit vos images** pour qu'elles s'affichent dans le ficher en markdown
-- git commit -m "message de commit"
-- git push
+
+question bonus: 
+Amazon Elastic Container Registry (ECR). Ce service permet de stocker, gérer et déployer les images Docker de manière sécurisée et intégrée avec AWS, ce qui facilite leur utilisation dans ECS avec Fargate.
